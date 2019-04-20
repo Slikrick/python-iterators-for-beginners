@@ -1,24 +1,27 @@
-import time
-def what_is_an_iterator():
-    print("At it's core, an iterator is an object with 2 specific methods: \
-            `__next__` and `__iter__`")
-    input()
-    print("An iterator is an object which will give you one item at a time, \
-            and stop when there are no items left to give")
-    input()
-    print("An example of an iterator is a list")
-    input()
-    my_list = [1, 2, 3, 5, 4]
-    print(f"My List: {my_list}")
-    for item in my_list:
-        print(f"item: {item}")
-    print("End of iteration")
-    input()
-    print("Notice how `item` is each element in the list one at a time")
-    print("When you use a for loop you use an iterator")
+###########################
+#
+# What is an iterator?
+#
+###########################
+#
+# At it's core, an iterator is an object with state that returns a value
+# one at a time when next() is called on it (next internally calls the
+# internal __next__() method which iterators must define.
+#
+# For something to be iterable means that you can create an iterator from it
+# Lists, sets, dictionaries are all iterable, but are not directly iterators
+# Iterables produce an iterator by calling iter() on them (this calls
+# __iter__() on the underlying object.
+#
+# For completeness sake, all iterators are iterable, and are expected to
+# return themselves in their __iter__ implementation.
+#
+# Iterable -> iter() -> iterator -> next() -> item
+#
+# Iterators are a powerful concept that are core to a lot of the way python works
 
 class MyIterator:
-    """This class takes an iterator and filters out any
+    """This class takes an iterable and filters out any
     0 items inside it. If the item cannot be compared with 0 it will
     raise an exception.
 
@@ -29,13 +32,14 @@ class MyIterator:
     Don't actually use this
     """
     def __init__(self, iterable):
-        self.iterable = iter(iterable)
+        self.iterable = iterable
 
     def __iter__(self):
+        self.iterator = iter(self.iterable)
         return self
 
     def __next__(self):
-        for item in self.iterable:
+        for item in self.iterator:
             if item == 0:
                 pass
             else: 
@@ -77,4 +81,12 @@ if __name__ == "__main__":
     s = MyIterator([1, 0, 2, 0, 5, 0, 3, 0, 0, 6])
     for item in s:
         print(item)
+    print("End iteration")
+    fib = Fibonaccirator(100)
+    for i in fib:
+        print(i)
+    print("End iteration")
+    print("Generator fib")
+    for i in fibonacci(100):
+        print(i)
     print("End iteration")
