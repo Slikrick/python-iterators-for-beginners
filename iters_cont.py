@@ -21,6 +21,10 @@ def bill_combinations():
     # wallet
     return list(bill_combos)
 
+def bill_permutations():
+    bills = [20, 20, 10, 10, 5, 5, 5, 1, 1, 1, 1]
+    bill_perms = it.permutations(bills, 3)
+    return list(bill_perms)
 
 def bill_combinations_no_dupes():
     return set(bill_combinations())
